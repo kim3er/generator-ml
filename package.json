@@ -1,0 +1,14 @@
+{
+  "name": "generator-middle-layer",
+  "version": "1.0.0",
+  "description": "Yo generator for Middle Layer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "Richard Kimber <rich@k3r.me> (rich@k3r.me)",
+  "license": "ISC"
+}
