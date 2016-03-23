@@ -1,17 +1,32 @@
 /* @flow */
 import 'babel-polyfill';
 import { MlApplication } from 'middle-layer/lib/application';
+import { <%= titleCaseName %>Loading } from './components/loading';
+import { <%= titleCaseName %>Renderer } from './components/renderer';
+import { <%= titleCaseName %>Router } from './components/router';
+import { WelcomeController } from './controllers/welcome_controller';
+
 
 class <%= titleCaseName %>App extends MlApplication {
 
 	config() {
-
+		return {
+			controllers: [
+				WelcomeController
+			],
+			classes: {
+				router: <%= titleCaseName %>Router,
+				renderer: <%= titleCaseName %>Renderer
+			}
+		};
 	}
 
 	async ready() {
 		let self = this;
 
 		FastClick.attach(document.body);
+
+		<%= titleCaseName %>Loading.show();
 
 		if (typeof analytics !== 'undefined') {
 			// analytics.debugMode();
@@ -36,6 +51,10 @@ class <%= titleCaseName %>App extends MlApplication {
 		if (typeof navigator !== 'undefined' && navigator.splashscreen) {
 			navigator.splashscreen.hide();
 		}
+
+		await this.router.goTo('welcome');
+
+		<%= titleCaseName %>Loading.hide();
 
 	}
 

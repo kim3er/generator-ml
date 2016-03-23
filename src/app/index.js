@@ -114,12 +114,29 @@ export default class AppGenerator extends Base {
 
 			files() {
 				const files = [
-					[ '_gulpfile.babel.js', 'gulpfile.babel.js' ],
-					[ 'gitignore.txt', '.gitignore' ],
-					[ 'app/javascripts/_app.js', 'app/javascripts/app.js' ]
+					[ 'app/javascripts/components/_controller.js', 'app/javascripts/components/controller.js' ],
+					[ 'app/javascripts/components/_loading.js', 'app/javascripts/components/loading.js' ],
+					[ 'app/javascripts/components/_renderer.js', 'app/javascripts/components/renderer.js' ],
+					[ 'app/javascripts/components/_router.js', 'app/javascripts/components/router.js' ],
+					[ 'app/javascripts/controllers/_welcome_controller.js', 'app/javascripts/controllers/welcome_controller.js' ],
+					[ 'app/javascripts/_app.js', 'app/javascripts/app.js' ],
+					[ 'app/stylesheets/components/_layout.scss', 'app/stylesheets/components/layout.scss' ],
+					[ 'app/stylesheets/components/_loading.scss', 'app/stylesheets/components/loading.scss' ],
+					[ 'app/stylesheets/_app.scss', 'app/stylesheets/app.scss' ],
+					[ 'app/templates/components/_loading.html', 'app/templates/components/loading.html' ],
+					[ 'app/templates/index/_cordova.html', 'app/templates/index/cordova.html' ],
+					[ 'app/templates/index/_foot.html', 'app/templates/index/foot.html' ],
+					[ 'app/templates/index/_head.html', 'app/templates/index/head.html' ],
+					[ 'app/templates/index/_scripts.html', 'app/templates/index/scripts.html' ],
+					[ 'app/templates/layouts/_layout.html', 'app/templates/layouts/layout.html' ],
+					[ 'app/views/welcome/_index.html', 'app/views/welcome/index.html' ],
+					[ 'app/_chrome.html', 'app/chrome.html' ],
+					[ 'app/_index.html', 'app/index.html' ],
+					[ '_gitignore.txt', '.gitignore' ],
+					[ '_gulpfile.babel.js', 'gulpfile.babel.js' ]
 				];
 
-				let titleCaseName = toTitleCase(this.appName);
+				let titleCaseName = toTitleCase(this.appName.replace('-', ' ')).replace(' ', '');
 				if (titleCaseName === 'Ml') {
 					titleCaseName += '2';
 				}
@@ -139,8 +156,6 @@ export default class AppGenerator extends Base {
 			directories() {
 				const directories = [
 					'app/images',
-					'app/javascripts/components',
-					'app/javascripts/controllers',
 					'app/javascripts/models',
 					'app/javascripts/services',
 					'app/javascripts/stores'

@@ -19,7 +19,7 @@ gulp.task('templates', function() {
 	const stream = merge();
 
 	for (const generator of GENERATORS_ARR) {
-		const src = `${SRC_PATH}/${generator}/templates/**/**/*`,
+		const src = `${SRC_PATH}/${generator}/templates/**/**/**/*`,
 			dest = `${GENERATORS_PATH}/${generator}/templates`;
 
 		stream.add(

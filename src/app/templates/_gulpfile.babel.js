@@ -1,3 +1,4 @@
+import babelify from 'babelify';
 import bower from 'main-bower-files';
 import browserify from 'browserify';
 import buffer from 'vinyl-buffer';
@@ -49,7 +50,7 @@ const RENDER_CONFIG = {
 	watch: false,
 	tags: {
 		blockStart: '<%%',
-		blockEnd: '%%>',
+		blockEnd: '%>',
 		variableStart: '<$',
 		variableEnd: '$>',
 		commentStart: '<#',
@@ -62,7 +63,7 @@ const COMPILE_CONFIG = {
 	watch: false
 	// tags: {
 	// 	blockStart: '<%%',
-	// 	blockEnd: '%%>',
+	// 	blockEnd: '%>',
 	// 	variableStart: '<$',
 	// 	variableEnd: '$>',
 	// 	commentStart: '<#',
@@ -97,7 +98,7 @@ gulp.task('del-chrome', function(cb) {
 gulp.task('env', function() {
 	return gulp.src(ENV_PATH + '/' + ( process.env.NODE_ENV || 'production' ) + '.json')
 		.pipe(plumber())
-		.pipe(wrap('this[\'env\'] = <%%= contents %%>;', {}, { parse: false }))
+		.pipe(wrap('this[\'env\'] = <%%= contents %>;', {}, { parse: false }))
 		//.pipe(uglify())
 		.pipe(concat('env.js'))
 		.pipe(gulp.dest(JAVASCRIPTS_WEB_PATH));
@@ -171,14 +172,7 @@ gulp.task('views-func', [ 'views' ], function() {
 function renderHtml(stream) {
 	nunjucksRender.nunjucks.configure([ TEMPLATES_APP_PATH ], RENDER_CONFIG);
 
-	return stream.pipe(data(function(file) {
-			var content = fm(String(file.contents));
-
-			file.contents = new Buffer(content.body);
-
-			return content.attributes;
-		}))
-		.pipe(nunjucksRender());
+	return stream.pipe(nunjucksRender());
 }
 
 function renderFiles(stream, contents) {
