@@ -58,7 +58,6 @@ const RENDER_CONFIG = {
 	}
 };
 
-
 const COMPILE_CONFIG = {
 	watch: false
 	// tags: {
