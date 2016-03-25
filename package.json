@@ -1,6 +1,6 @@
 {
   "name": "generator-ml",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yo generator for Middle Layer",
   "files": [
     "generators/app"
