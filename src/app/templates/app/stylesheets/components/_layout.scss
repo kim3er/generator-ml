@@ -1,0 +1,15 @@
+html {
+	user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+}
+
+$ios-header-padding: 20px;
+
+.app-header-spacer {
+
+	.ios-header & {
+		height: $ios-header-padding;
+	}
+}

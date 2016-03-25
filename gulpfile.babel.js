@@ -15,6 +15,22 @@ gulp.task('del', function(cb) {
 		.then(() => cb());
 });
 
+gulp.task('templates', function() {
+	const stream = merge();
+
+	for (const generator of GENERATORS_ARR) {
+		const src = `${SRC_PATH}/${generator}/templates/**/**/**/*`,
+			dest = `${GENERATORS_PATH}/${generator}/templates`;
+
+		stream.add(
+			gulp.src(src)
+				.pipe(gulp.dest(dest))
+		);
+	}
+
+	return merge;
+});
+
 gulp.task('indexes', function() {
 	const stream = merge(),
 		indexFile = 'index.js';
@@ -36,6 +52,7 @@ gulp.task('indexes', function() {
 
 gulp.task('default', [ 'del' ], function(cb) {
 	runSequence(
+		'templates',
 		'indexes',
 		cb
 	);
