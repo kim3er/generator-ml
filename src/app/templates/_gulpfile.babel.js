@@ -183,14 +183,6 @@ function renderFiles(stream, contents) {
 		.pipe(nunjucksRender());
 }
 
-function updateConfig(sources, dest, ext, contents) {
-	return renderFiles(gulp.src(sources), contents)
-		.pipe(rename(function(path) {
-			path.extname = ext
-		}))
-		.pipe(gulp.dest(dest));
-}
-
 function asyncWrap(name, stream, cb) {
 	stream
 		.on('end', function() {
@@ -210,19 +202,6 @@ gulp.task('index', function() {
 
 	return renderHtml(gulp.src(sources))
 		.pipe(gulp.dest(WEB_PATH));
-});
-
-gulp.task('update-config', function(cb) {
-	let contents = JSON.parse(fs.readFileSync(CONFIG_PATH + '/config.json'));
-
-	async.series([
-		function(_cb) { asyncWrap('Bower', updateConfig(CONFIG_PATH + '/bower.json', './', '.json', contents), _cb); },
-		function(_cb) { asyncWrap('Cordova', updateConfig(CONFIG_PATH + '/config.xml', './cordova/', '.xml', contents), _cb); },
-		function(_cb) { asyncWrap('Chrome', updateConfig(CONFIG_PATH + '/manifest.json', CHROME_OVERRIDES_PATH, '.json', contents), _cb); },
-		function(_cb) { asyncWrap('NPM', updateConfig(CONFIG_PATH + '/package.json', './', '.json', contents), _cb); }
-	], function(err) {
-		cb();
-	});
 });
 
 gulp.task('move-to-cordova', function() {
@@ -291,7 +270,6 @@ gulp.task('serve', [ 'del-web', 'del-interim' ], function(cb) {
 gulp.task('build', [ 'del-web', 'del-cordova', 'del-interim', 'del-chrome' ], function(cb) {
 	runSequence(
 		[ 'env', 'stylesheets', 'fonts', 'images', 'javascript-libs', 'javascripts', 'views-func', 'index' ],
-		'update-config',
 		'move-to-cordova',
 		'move-to-chrome',
 		'chrome-overrides',
